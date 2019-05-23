@@ -1,0 +1,46 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: hello-world
+  name: hello-world
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hello-world
+  template:
+    metadata:
+      labels:
+        app: hello-world
+    spec:
+      containers:
+      - env:
+        - name: MYVAR
+          valueFrom:
+            configMapKeyRef:
+              name: hello-world-config
+              key: myvar
+        # - name: MYVAR
+        #   valueFrom:
+        #     secretKeyRef:
+        #       name: hello-world-config
+        #       key: myvar
+        - name: MYFILE
+          valueFrom:
+            configMapKeyRef:
+              name: hello-world-config
+              key: myfile
+        image: pyxida/hello-world-k8s
+        name: hello-world
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        volumeMounts:
+        - name: config-volume
+          mountPath: /etc/config
+      volumes:
+      - name: config-volume
+        configMap:
+          name: configmap-file

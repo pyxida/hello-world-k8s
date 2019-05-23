@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hello-world-file
+data:
+  myconf.txt: |
+    KEY1=VALUE1
+    KEY2=VALUE2
