@@ -43,4 +43,4 @@ spec:
       volumes:
       - name: config-volume
         configMap:
-          name: configmap-file
+          name: hello-world-file
